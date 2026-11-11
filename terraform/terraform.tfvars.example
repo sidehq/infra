@@ -1,0 +1,10 @@
+project        = "mi-proyecto-gcp"
+region         = "southamerica-east1"
+zone           = "southamerica-east1-a"
+neon_region_id = "aws-sa-east-1"
+
+domain                = "example.com"
+cloudflare_account_id = "0123456789abcdef0123456789abcdef"
+cloudflare_zone_id    = "0123456789abcdef0123456789abcdef"
+pages_project_name    = "side-app"
+admin_emails          = ["tu-correo@example.com"]

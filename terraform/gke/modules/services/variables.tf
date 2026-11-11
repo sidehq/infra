@@ -1,15 +1,16 @@
 variable "project" {
-  description = "name of the gcp project"
+  description = "ID del proyecto de GCP"
   type        = string
 }
 
 variable "services_list" {
-  description = "Enable required api's to the project"
+  description = "APIs que necesita el cluster"
   type        = list(string)
   default = [
-    "artifactregistry.googleapis.com",
     "compute.googleapis.com",
+    "container.googleapis.com",
+    "iam.googleapis.com",
+    "iamcredentials.googleapis.com", # tokens de Workload Identity
     "secretmanager.googleapis.com",
-    "container.googleapis.com"
   ]
 }

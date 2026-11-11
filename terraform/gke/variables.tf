@@ -1,61 +1,48 @@
-variable "service_account" {
-
-}
-
 variable "project" {
-  description = "name of the gcp project"
+  description = "ID del proyecto de GCP"
   type        = string
 }
 
-variable "bucket_name" {
-  description = "name of the bucket to store airflow logs"
+variable "region" {
+  description = "Región de la red y la subnet"
   type        = string
 }
 
-variable "project_region" {
-  description = "region of the resources in the project"
+variable "zone" {
+  description = "Zona del cluster (zonal: el tráfico entre pods no cruza zonas)"
   type        = string
 }
 
-variable "project_region_zone" {
-
-}
-
-variable "bucket_class" {
-  description = "storage class of the bucket"
+variable "name" {
+  description = "Prefijo de la VPC, la subnet, el cluster y el node pool"
   type        = string
+  default     = "side"
 }
 
-variable "repository_id" {
-  description = "name of the artifact registry repo"
+variable "machine_type" {
+  description = "Tipo de máquina de los nodos"
   type        = string
+  default     = "e2-standard-2"
 }
 
-variable "repository_format" {
-  description = "format of the artifact registry repo"
-  type        = string
+variable "node_count" {
+  description = "Número de nodos del pool"
+  type        = number
+  default     = 1
 }
 
-variable "service_account_name" {
-  type = string
-}
-
-variable "vpc_name" {
-  description = "name of the vpc network"
-  type        = string
-}
-
-variable "vpc_subnet_name" {
-  description = "name of the vpc subnet"
-  type        = string
-}
-
-variable "gke_name" {
-  description = "gke cluster name"
-  type        = string
-}
-
-variable "airflow_secrets" {
-  description = "variable that contains all the secrets (user_db,password)"
-  type        = map(any)
+variable "workload_identities" {
+  description = "GSA por KSA vía Workload Identity. Solo los pods con su KSA en este mapa pueden usar una cuenta de GCP"
+  type = map(object({
+    namespace = string
+    ksa       = string
+    roles     = list(string)
+  }))
+  default = {
+    external-secrets = {
+      namespace = "external-secrets"
+      ksa       = "external-secrets"
+      roles     = ["roles/secretmanager.secretAccessor"]
+    }
+  }
 }

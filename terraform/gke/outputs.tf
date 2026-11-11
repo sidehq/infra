@@ -1,17 +1,12 @@
-# output "kubernetes_cluster_name" {
-#   value       = google_container_cluster.airflow_cluster.name
-#   description = "GKE Cluster Name"
-# }
+output "cluster_name" {
+  value = module.cluster.name
+}
 
-# output "kubernetes_cluster_host" {
-#   value       = google_container_cluster.airflow_cluster.endpoint
-#   description = "GKE Cluster Host"
-# }
+output "cluster_location" {
+  value = module.cluster.location
+}
 
-# output "airflow_instance" {
-#   value = google_sql_database_instance.airflow_instance.private_ip_address
-# }
-
-# output "services_accounts" {
-#   value = [for sa in google_service_account.service_account : sa.email]
-# }
+output "workload_identity_gsas" {
+  description = "Email de la GSA por KSA, para la anotación iam.gke.io/gcp-service-account"
+  value       = module.identity.gsa_emails
+}
