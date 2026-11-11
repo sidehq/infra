@@ -13,7 +13,7 @@ resource "cloudflare_pages_domain" "this" {
 
 resource "cloudflare_dns_record" "this" {
   zone_id = var.zone_id
-  name    = var.subdomain
+  name    = "${var.subdomain}.${var.domain}"
   type    = "CNAME"
   content = "${cloudflare_pages_project.this.name}.pages.dev"
   proxied = true
